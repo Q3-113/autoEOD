@@ -6,8 +6,8 @@ api_token = "" # Toggl API token
 user = "" # Toggl user name
 
 base_url = "https://api.track.toggl.com/reports/api/v2/details"
-user_agent = "simonoswald@outlook.com"
-date = datetime.today().strftime('%Y-%m-%d')
+user_agent = "autoEOD"
+date = datetime.today().isoformat()
 
 auth = (api_token, "api_token")
 
@@ -17,9 +17,10 @@ payload = {
     "since": date
 }
 
-r = requests.get(base_url, auth=auth, params=payload).json()
+r = requests.get(base_url, auth=auth, params=payload)
+r.raise_for_status()
 
-events = r["data"]
+events = r.json()["data"]
 projects = set()
 events_by_project = {}
 
@@ -39,4 +40,3 @@ for e in events:
     
 for p in projects:
     print(p + "\nEOD: " + ", ".join(e for e in events_by_project[p]) + "\n")
-

@@ -1,0 +1,5 @@
+a simple script to turn my Toggl entries into end of day posts.
+
+
+I would love to post the EODs to teams automatically 
+unfortunately ms teams webhooks don't support replying to messages :(
